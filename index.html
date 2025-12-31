@@ -14,6 +14,13 @@ body {
   overflow-x: hidden; /* ✅ prevent horizontal scroll */
   color: #fff;
 }
+
+.monkey {
+  font-size: 2.2em;          /* bigger */
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.6)); /* glow */
+  display: inline-block;
+}
+
 /* Center Card */
 .card {
   position: relative;
@@ -65,12 +72,18 @@ p { line-height: 1.6; }
 
 /* Hidden Button */
 .secret-btn {
-  margin-top: 18px;
-  font-size: 0.85em;
-  opacity: 0.4;
+  margin-top: 22px;
+  font-size: 1em;
+  opacity: 1;                         /* fully visible */
   cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+  background: rgba(255,255,255,0.15);
+  padding: 10px 18px;
+  border-radius: 20px;
+  display: inline-block;
+  animation: pulse 2s infinite;       /* gentle attention */
 }
-
 .secret-message {
   display: none;
   margin-top: 15px;
@@ -101,6 +114,13 @@ canvas {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(255,255,255,0.3); }
+  50% { transform: scale(1.08); box-shadow: 0 0 12px rgba(255,255,255,0.6); }
+  100% { transform: scale(1); box-shadow: 0 0 0 rgba(255,255,255,0.3); }
+}
+
 </style>
 </head>
 
@@ -144,8 +164,9 @@ canvas {
     but I know I’m grateful you exist in mine.
   </p>
 
-  <p style="margin-top:15px;">— <b id="yourName">🐒</b></p>
-
+  <p style="margin-top:20px;">
+    — <b id="yourName" class="monkey">🐒</b>
+  </p>
   <!-- Surprise #3 -->
   <div class="secret-btn" onclick="revealMessage()">tap gently ✨</div>
   <div class="secret-message" id="secretMsg">
@@ -181,7 +202,9 @@ setInterval(() => {
 
 /* Hidden Message */
 function revealMessage() {
-  document.getElementById('secretMsg').style.display = 'block';
+  const msg = document.getElementById('secretMsg');
+  msg.style.display = 'block';
+  msg.style.animation = 'fadeIn 1.5s ease';
 }
 
 /* Fireworks Animation */
