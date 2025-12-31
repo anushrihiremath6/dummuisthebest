@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Welcome to 2026 ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #ff758c, #ff7eb3);
+  overflow: hidden;
+  color: #fff;
+}
+
+/* Center Card */
+.card {
+  position: relative;
+  max-width: 420px;
+  margin: 60px auto;
+  background: rgba(0,0,0,0.3);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 10;
+  animation: fadeIn 2s ease;
+}
+
+h1 { font-size: 2.2em; }
+h2 { font-weight: 300; }
+p { line-height: 1.6; }
+
+.heart {
+  font-size: 3em;
+  animation: beat 1.2s infinite;
+}
+
+/* Slideshow */
+.slideshow {
+  width: 100%;
+  height: 220px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.slideshow img.active {
+  display: block;
+}
+
+/* Caption */
+#caption {
+  font-style: italic;
+  opacity: 0.85;
+  margin-top: 10px;
+}
+
+/* Hidden Button */
+.secret-btn {
+  margin-top: 18px;
+  font-size: 0.85em;
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+.secret-message {
+  display: none;
+  margin-top: 15px;
+  font-size: 1.3em;
+  color: #ffdde1;
+  animation: fadeIn 1s ease;
+}
+
+/* Fireworks */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Animations */
+@keyframes beat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music (starts after first click – browser safe) -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Fireworks Canvas -->
+<canvas id="fireworks"></canvas>
+
+<div class="card">
+  <div class="heart">❤️</div>
+
+  <!-- Surprise #1 -->
+  <h1>Hello 2026</h1>
+  <h2>but more importantly… hello <span id="herName">Dummmmu</span> 🫠</h2>
+
+  <!-- Photo Slideshow -->
+  <div class="slideshow">
+    <img src="photo1.jpg" class="active">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+  </div>
+
+  <!-- Surprise #2 captions -->
+  <p id="caption">This year taught me patience</p>
+
+  <p>
+    Another year begins quietly.  
+    No rush. No expectations.
+  </p>
+
+  <p>
+    I don’t know where life takes us,  
+    but I know I’m grateful you exist in mine.
+  </p>
+
+  <p style="margin-top:15px;">— <b id="yourName">Mounesh</b></p>
+
+  <!-- Surprise #3 -->
+  <div class="secret-btn" onclick="revealMessage()">tap gently ✨</div>
+  <div class="secret-message" id="secretMsg">
+    If the next year gives me one wish…<br>
+    it’s to keep you in my world ❤️
+  </div>
+</div>
+
+<script>
+/* Enable music on first interaction */
+const bgMusic = document.getElementById("bgMusic");
+document.body.addEventListener("click", () => {
+  bgMusic.play();
+}, { once: true });
+
+/* Slideshow + Timeline Captions */
+let slides = document.querySelectorAll('.slideshow img');
+let captions = [
+  "This year taught me patience",
+  "It taught me presence",
+  "And that you matter to me more than I ever think of"
+];
+let captionEl = document.getElementById("caption");
+
+let index = 0;
+
+setInterval(() => {
+  slides[index].classList.remove('active');
+  index = (index + 1) % slides.length;
+  slides[index].classList.add('active');
+  captionEl.textContent = captions[index];
+}, 3500);
+
+/* Hidden Message */
+function revealMessage() {
+  document.getElementById('secretMsg').style.display = 'block';
+}
+
+/* Fireworks Animation */
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let fireworks = [];
+
+function Firework() {
+  this.x = Math.random() * canvas.width;
+  this.y = canvas.height;
+  this.radius = Math.random() * 3 + 2;
+  this.color = `hsl(${Math.random()*360},100%,50%)`;
+  this.speed = Math.random() * 3 + 3;
+}
+
+Firework.prototype.update = function() {
+  this.y -= this.speed;
+  if (this.y < canvas.height / 2) this.y = canvas.height;
+};
+
+Firework.prototype.draw = function() {
+  ctx.beginPath();
+  ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+  ctx.fillStyle = this.color;
+  ctx.fill();
+};
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  fireworks.forEach(f => { f.update(); f.draw(); });
+  requestAnimationFrame(animate);
+}
+
+for (let i=0;i<60;i++) fireworks.push(new Firework());
+animate();
+</script>
+
+</body>
+</html>
