@@ -10,10 +10,10 @@ body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(120deg, #ff758c, #ff7eb3);
-  overflow: hidden;
+  overflow-y: auto;   /* ✅ allow vertical scrolling */
+  overflow-x: hidden; /* ✅ prevent horizontal scroll */
   color: #fff;
 }
-
 /* Center Card */
 .card {
   position: relative;
@@ -79,6 +79,8 @@ p { line-height: 1.6; }
   text-align: center;
   line-height: 1.4;
   word-wrap: break-word;
+  word-break: break-word;     /* ensure long text wraps on small screens */
+  white-space: normal;        /* override any no-wrap issues */
 }
 
 /* Fireworks */
