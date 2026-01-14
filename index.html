@@ -3,81 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sankranthi Celebration 🌾💛</title>
+<title>Sankranti Celebration 🌾💛</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Georgia, serif;}
-body{overflow:hidden;transition:background 6s linear;margin:0;}
+* { box-sizing: border-box; margin:0; padding:0; font-family: Georgia, serif; }
 
-/* 🌅 SKY STATES */
-body.sunrise{background:linear-gradient(#87ceeb,#ffe9a3,#7bc96f,#2e7d32);}
-body.noon{background:linear-gradient(#6ec6ff,#c8f7ff,#7bc96f,#1b5e20);}
-body.sunset{background:linear-gradient(#ff9a76,#ffd29d,#7bc96f,#1b5e20);}
-body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20);}
+/* 🌅 SKY */
+body { overflow-x:hidden; transition: background 6s linear; }
+body.sunrise { background: linear-gradient(#87ceeb,#ffe9a3,#7bc96f,#2e7d32);}
+body.noon    { background: linear-gradient(#6ec6ff,#c8f7ff,#7bc96f,#1b5e20);}
+body.sunset  { background: linear-gradient(#ff9a76,#ffd29d,#7bc96f,#1b5e20);}
+body.night   { background: linear-gradient(#2c3e50,#34495e,#1b5e20);}
 
 /* ☀️ SUN */
-.sun{
+.sun {
   position:absolute;
   top:12%;
   left:50%;
   transform:translateX(-50%);
-  width:100px;
-  height:100px;
+  width:90px;
+  height:90px;
   border-radius:50%;
   background:radial-gradient(circle,#fffde7,#fbc02d);
   box-shadow:0 0 120px rgba(255,193,7,0.9);
   z-index:2;
-  transition:top 6s, box-shadow 6s;
+  transition:top 6s;
 }
 
 /* 🎉 SANKRANTI WISH */
-.sankranti-wish{
+.sankranti-wish {
   position:absolute;
-  top:8%;
+  top:6%;
   left:50%;
   transform:translateX(-50%);
-  font-size:3em;
+  font-size:2.5em;
   color:#fff8e1;
-  text-shadow:0 0 25px rgba(255,193,7,0.9);
   text-align:center;
-  z-index:9999; /* FORCE on top */
+  text-shadow:0 0 25px rgba(255,193,7,0.9);
+  z-index:9999;
   pointer-events:none;
 }
 
 /* 🏔️ MOUNTAINS */
-.mountains{
+.mountains {
   position:absolute;
   bottom:40%;
   width:100%;
   height:25%;
   background:linear-gradient(to top,#455a64,#90a4ae);
-  clip-path:polygon(0 100%,10% 60%,25% 80%,40% 50%,55% 75%,70% 45%,85% 70%,100% 55%,100% 100%);
+  clip-path: polygon(0 100%,10% 60%,25% 80%,40% 50%,55% 75%,70% 45%,85% 70%,100% 55%,100% 100%);
   z-index:1;
 }
 
 /* 💬 DIALOGUE */
-.dialogue{
+.dialogue {
   position:absolute;
   top:38%;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(255,255,255,.95);
-  padding:16px 22px;
-  border-radius:22px;
-  max-width:400px;
+  background:rgba(255,255,255,0.95);
+  padding:14px 20px;
+  border-radius:20px;
+  max-width:90%;
   text-align:center;
-  font-size:1.05em;
+  font-size:1em;
   z-index:4;
   transition:opacity 1s;
 }
 
 /* 🖼️ SLIDESHOW */
-.slideshow{
+.slideshow {
   position:absolute;
   bottom:18%;
   left:50%;
   transform:translateX(-50%);
-  width:280px;
-  height:380px;
+  width:80%;
+  max-width:280px;
+  height:45%;
+  max-height:380px;
   border-radius:22px;
   overflow:hidden;
   background:#fff;
@@ -98,7 +100,7 @@ body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20);}
 }
 
 /* 🌾 FIELD */
-.field{
+.field {
   position:absolute;
   bottom:0;
   width:100%;
@@ -111,7 +113,7 @@ body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20);}
   position:absolute;
   bottom:0;
   width:6px;
-  height:160px;
+  height:150px;
   background:linear-gradient(to top,#1b5e20,#4caf50);
   transform-origin:bottom;
   border-radius:3px;
@@ -127,20 +129,21 @@ body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20);}
 }
 
 /* 🐦 BIRDS & 🪁 KITES */
-.birds,.kites{position:absolute;inset:0;pointer-events:none;}
+.birds,.kites{position:absolute; inset:0; pointer-events:none;}
 .bird{
   position:absolute;
-  width:20px;
-  height:12px;
+  width:18px;
+  height:10px;
   border-top:2px solid #222;
   border-radius:50%;
   animation:flap .6s alternate infinite;
 }
-@keyframes flap{from{transform:rotate(6deg)}to{transform:rotate(-6deg)}}
+@keyframes flap { from{transform:rotate(5deg);} to{transform:rotate(-5deg);} }
+
 .kite{
   position:absolute;
-  width:38px;
-  height:38px;
+  width:34px;
+  height:34px;
   background:linear-gradient(45deg,#ff5252,#ffca28);
   transform:rotate(45deg);
 }
@@ -148,10 +151,10 @@ body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20);}
   content:'';
   position:absolute;
   width:2px;
-  height:60px;
+  height:50px;
   background:rgba(0,0,0,0.3);
-  top:38px;
-  left:18px;
+  top:34px;
+  left:16px;
 }
 
 /* 🎶 MUSIC PROMPT */
@@ -171,32 +174,31 @@ body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20);}
   border:none;
   cursor:pointer;
 }
+
+/* MOBILE */
+@media(max-width:768px){
+  .sun{width:70px;height:70px;top:10%;}
+  .sankranti-wish{font-size:2em;top:4%;}
+  .dialogue{top:35%;font-size:.95em;}
+  .slideshow{width:90%;height:40%;}
+}
 </style>
 </head>
 <body class="sunrise">
 
 <div id="musicPrompt">
-  <button onclick="startMusic()">Tap to Begin Sankranthi 🌾🎶</button>
+  <button onclick="startMusic()">Tap to Begin Sankranti 🌾🎶</button>
 </div>
 <audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ☀️ SUN -->
 <div class="sun" id="sun"></div>
+<div class="sankranti-wish">🌾 Happy Sankranti! 🌞💛<br><span>May your day shine like the harvest sun</span></div>
 
-<!-- 🎉 SANKRANTI WISH -->
-<div class="sankranti-wish">🌾 Happy Sankranti! 🌞💛<br><span>May your day be as bright as the harvest sun</span></div>
-
-<!-- 🏔️ MOUNTAINS -->
 <div class="mountains"></div>
+<div class="dialogue" id="dialogue">The morning wakes up gently… just to see you 🌅💛</div>
 
-<!-- 💬 DIALOGUE -->
-<div class="dialogue" id="dialogue">
-The morning wakes up gently… just to see you 🌅💛
-</div>
-
-<!-- 🖼️ SLIDESHOW -->
 <div class="slideshow" id="slideshow">
   <img src="photo1.jpg" class="active">
   <img src="photo2.jpg">
@@ -243,9 +245,9 @@ setInterval(()=>{
     dialogue.style.opacity=1;
   },600);
 
-  if(i===2){document.body.className="noon";sun.style.top="10%";}
-  if(i===6){document.body.className="sunset";sun.style.top="25%";}
-  if(i===9){document.body.className="night";sun.style.top="40%";}
+  if(i===2){document.body.className="noon"; sun.style.top="10%";}
+  if(i===6){document.body.className="sunset"; sun.style.top="25%";}
+  if(i===9){document.body.className="night"; sun.style.top="40%";}
 },15000);
 
 /* SUGARCANE */
