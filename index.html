@@ -1,202 +1,25 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Immersive Sankranthi Experience 🌾</title><style>
-* { box-sizing: border-box; }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Immersive Sankranthi Experience 🌾</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  overflow: hidden;
-  height: 100vh;
   font-family: 'Georgia', serif;
+  background: linear-gradient(to bottom, #87ceeb 0%, #ffe9a3 45%, #7bc96f 60%, #2e7d32 100%);
   transition: background 6s linear;
-  background: linear-gradient(to bottom, #87ceeb 0%, #ffe9a3 45%, #7bc96f 60%, #2e7d32 100%); /* sunrise */
+  overflow-x: hidden;
 }
 
-/* Sun */
-.sun {
-  position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, #fffde7, #fbc02d);
-  border-radius: 50%;
-  box-shadow: 0 0 120px rgba(255,193,7,0.9);
-  transition: all 6s linear;
-  z-index: 1;
-}
-
-/* Mountains */
-.mountains {
-  position: absolute;
-  bottom: 38%;
-  width: 100%;
-  height: 30%;
-  background: linear-gradient(to top, #455a64, #90a4ae);
-  clip-path: polygon(0 100%, 10% 55%, 25% 75%, 40% 45%, 55% 70%, 70% 40%, 85% 65%, 100% 50%, 100% 100%);
-  opacity: 0.85;
-  z-index: 1;
-}
-
-/* Slideshow */
-.slideshow {
-  position: absolute;
-  bottom: 18%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  height: 400px;
-  border-radius: 26px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 35px 70px rgba(0,0,0,0.45);
-  z-index: 5;
-}
-.slideshow img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  opacity: 0;
-  transition: opacity 2s ease-in-out, transform 6s ease-in-out;
-}
-.slideshow img.active {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-/* Dialogue */
-.dialogue {
-  position: absolute;
-  bottom: 62%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.95);
-  padding: 22px 28px;
-  border-radius: 24px;
-  max-width: 380px;
-  text-align: center;
-  font-size: 1.15em;
-  line-height: 1.6;
-  z-index: 6;
-  transition: opacity 1.5s ease-in-out;
-}
-
-/* Field */
-.field {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 42%;
-  z-index: 2;
-}
-
-/* Sugarcane stalks */
-.stalk {
-  position: absolute;
-  bottom: 0;
-  width: 6px;
-  height: 160px;
-  background: linear-gradient(to top, #1b5e20, #4caf50);
-  transform-origin: bottom center;
-  border-radius: 3px;
-}
-.leaf {
-  position: absolute;
-  width: 20px;
-  height: 6px;
-  background: #388e3c;
-  border-radius: 3px;
-  top: 20%;
-  left: -7px;
-  transform-origin: left center;
-}
-
-/* Birds SVG container */
-.birds {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  pointer-events: none;
-}
-.bird {
-  position: absolute;
-  width: 20px;
-  height: 15px;
-  border-top: 2px solid #222;
-  border-radius: 50%;
-  transform-origin: center;
-  animation: flap 0.6s ease-in-out infinite alternate;
-}
-
-@keyframes flap {
-  from { transform: rotate(6deg); }
-  to { transform: rotate(-6deg); }
-}
-#intro {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(to bottom, #ffecb3, #c8e6c9);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  animation: introFade 6s forwards;
-}
-
-#intro h1 {
-  font-size: 3em;
-  margin-bottom: 10px;
-}
-
-#intro p {
-  font-size: 1.2em;
-  opacity: 0.85;
-}
-
-@keyframes introFade {
-  0% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { opacity: 0; pointer-events: none; }
-}
-
-.kites {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.kite {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(45deg, #ff5252, #ffca28);
-  transform: rotate(45deg);
-  animation: kiteSway 4s ease-in-out infinite alternate;
-}
-
-.kite::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 60px;
-  background: rgba(0,0,0,0.3);
-  top: 40px;
-  left: 19px;
-}
-
-@keyframes kiteSway {
-  from { transform: translateY(0) rotate(40deg); }
-  to   { transform: translateY(-20px) rotate(50deg); }
-}
-<style>
+/* MUSIC PROMPT */
 #musicPrompt {
   position: fixed;
   inset: 0;
@@ -206,138 +29,295 @@ body {
   justify-content: center;
   z-index: 9999;
 }
-
 #musicPrompt button {
   font-size: 18px;
-  padding: 14px 24px;
+  padding: 14px 26px;
   border: none;
   border-radius: 30px;
-  background: #fff;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  cursor: pointer;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+/* INTRO */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(#ffecb3, #c8e6c9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: introFade 6s forwards;
+  text-align: center;
+  padding: 20px;
+}
+
+@keyframes introFade {
+  0%,80% {opacity:1}
+  100% {opacity:0; pointer-events:none}
+}
+
+/* SUN */
+.sun {
+  position: absolute;
+  top: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20vw;
+  max-width: 120px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, #fffde7, #fbc02d);
+  border-radius: 50%;
+  box-shadow: 0 0 100px rgba(255,193,7,.9);
+  z-index: 1;
+}
+
+/* MOUNTAINS */
+.mountains {
+  position: absolute;
+  bottom: 40%;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(to top, #455a64, #90a4ae);
+  clip-path: polygon(0 100%, 10% 55%, 25% 75%, 40% 45%, 55% 70%, 70% 40%, 85% 65%, 100% 50%, 100% 100%);
+  z-index: 1;
+}
+
+/* SLIDESHOW */
+.slideshow {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  max-width: 300px;
+  aspect-ratio: 3/4;
+  border-radius: 24px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 25px 60px rgba(0,0,0,.45);
+  z-index: 5;
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 2s ease, transform 6s ease;
+}
+
+.slideshow img.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* DIALOGUE */
+.dialogue {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.95);
+  padding: 18px 22px;
+  border-radius: 22px;
+  width: 85%;
+  max-width: 380px;
+  text-align: center;
+  font-size: 1.05rem;
+  z-index: 6;
+}
+
+/* FIELD */
+.field {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  z-index: 2;
+}
+
+/* SUGARCANE */
+.stalk {
+  position: absolute;
+  bottom: 0;
+  width: 6px;
+  height: 160px;
+  background: linear-gradient(#4caf50, #1b5e20);
+  transform-origin: bottom;
+}
+.leaf {
+  position: absolute;
+  width: 22px;
+  height: 6px;
+  background: #388e3c;
+  top: 30%;
+  left: -8px;
+  transform-origin: left center;
+}
+
+/* BIRDS */
+.birds {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.bird {
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  border-top: 2px solid #222;
+  border-radius: 50%;
+}
+
+/* KITES */
+.kites {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.kite {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(45deg, #ff5252, #ffca28);
+  transform: rotate(45deg);
+  animation: kite 4s ease-in-out infinite alternate;
+}
+@keyframes kite {
+  from {transform: translateY(0) rotate(40deg)}
+  to {transform: translateY(-20px) rotate(50deg)}
 }
 </style>
-</style></head>
+</head>
+
 <body>
+
 <div id="musicPrompt">
   <button onclick="startMusic()">Tap to begin this Sankranthi 🌾💛🎶</button>
 </div>
+
 <div id="intro">
-  <h1>Happy Makar Sankranthi Dummmmmmmmu🌾</h1>
+  <h1>Happy Makar Sankranthi Dummmmmmmmu 🌾</h1>
   <p>This festival feels brighter… because of you.</p>
 </div>
+
 <audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
-</audio><div class="sun" id="sun"></div>
+</audio>
+
+<div class="sun" id="sun"></div>
 <div class="mountains"></div>
+
 <div class="slideshow" id="slideshow">
+  <!-- keep your 20 images -->
   <img src="photo1.jpg" class="active">
-  <img src="photo2.jpg"><img src="photo3.jpg"><img src="photo4.jpg"><img src="photo5.jpg">
-  <img src="photo6.jpg"><img src="photo7.jpg"><img src="photo8.jpg"><img src="photo9.jpg"><img src="photo10.jpg">
-  <img src="photo11.jpg"><img src="photo12.jpg"><img src="photo13.jpg"><img src="photo14.jpg"><img src="photo15.jpg">
-  <img src="photo16.jpg"><img src="photo17.jpg"><img src="photo18.jpg"><img src="photo19.jpg"><img src="photo20.jpg">
-</div><div class="dialogue" id="dialogue">The morning wakes up gently… just to see you.</div>
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
+  <img src="photo5.jpg">
+  <img src="photo6.jpg">
+  <img src="photo7.jpg">
+  <img src="photo8.jpg">
+  <img src="photo9.jpg">
+  <img src="photo10.jpg">
+  <img src="photo11.jpg">
+  <img src="photo12.jpg">
+  <img src="photo13.jpg">
+  <img src="photo14.jpg">
+  <img src="photo15.jpg">
+  <img src="photo16.jpg">
+  <img src="photo17.jpg">
+  <img src="photo18.jpg">
+  <img src="photo19.jpg">
+  <img src="photo20.jpg">
+</div>
+
+<div class="dialogue" id="dialogue"></div>
 <div class="field" id="field"></div>
+<div class="birds" id="birds"></div>
 <div class="kites" id="kites"></div>
-<div class="birds" id="birds"></div><script>
-// Slideshow + dialogue
-const slides = document.querySelectorAll('.slideshow img');
-const dialogue = document.getElementById('dialogue');
-const sun = document.getElementById('sun');
-let index = 0;
-const lines = [
-  "The morning wakes up gently… just to see you.",
-  "Sunrise feels warmer when your smile exists.",
-  "As the day grows brighter, so does my admiration for you.",
-  "Even the fields bloom softer when you are near.",
-  "Afternoons feel calm… because thinking of you feels like rest.",
-  "Time slows down when your presence fills the day.",
-  "As the sun leans west, my thoughts still stay with you.",
-  "Evening whispers your name in the wind.",
-  "Sunset paints the sky… wishing it could be as beautiful as you.",
-  "And as the day rests, my feelings for you only grow deeper."
-];
-setInterval(() => {
-  slides[index].classList.remove('active');
-  index = (index + 1) % slides.length;
-  slides[index].classList.add('active');
-  dialogue.style.opacity = 0;
-  setTimeout(() => {
-    dialogue.innerText = lines[index % lines.length];
-    dialogue.style.opacity = 1;
-  }, 1000);
-  if (index === 7) { document.body.style.background = 'linear-gradient(to bottom, #87ceeb, #bde0fe, #7bc96f, #2e7d32)'; sun.style.top = '40px'; }
-  if (index === 14) { document.body.style.background = 'linear-gradient(to bottom, #ff9a76, #ffd29d, #7bc96f, #1b5e20)'; sun.style.top = '140px'; sun.style.boxShadow = '0 0 80px rgba(255,140,0,0.8)'; }
-}, 15000);
 
-// Sugarcane physics
-const field = document.getElementById('field');
-const stalkCount = 40;
-for(let i=0;i<stalkCount;i++){
-  const stalk = document.createElement('div');
-  stalk.className = 'stalk';
-  stalk.style.left = `${i*25}px`;
-  for(let l=0;l<3;l++){
-    const leaf = document.createElement('div');
-    leaf.className = 'leaf';
-    leaf.style.top = `${20 + l*30}px`;
-    leaf.style.transform = `rotate(${Math.random()*30-15}deg)`;
-    stalk.appendChild(leaf);
-  }
-  field.appendChild(stalk);
-}
-function swayStalks(){
-  const stalks = document.querySelectorAll('.stalk');
-  stalks.forEach((s,i)=>{
-    const angle = Math.sin(Date.now()/1000 + i) * 10;
-    s.style.transform = `rotate(${angle}deg)`;
-    Array.from(s.children).forEach((leaf,li)=>{
-      const lAngle = Math.sin(Date.now()/1000 + i + li) * 15;
-      leaf.style.transform = `rotate(${lAngle}deg)`;
-    });
-  });
-  requestAnimationFrame(swayStalks);
-}
-swayStalks();
-
-// Birds
-const birdsContainer = document.getElementById('birds');
-for(let i=0;i<6;i++){
-  const bird = document.createElement('div');
-  bird.className='bird';
-  bird.style.top = `${Math.random()*200+50}px`;
-  bird.style.left = `${-50-Math.random()*200}px`;
-  birdsContainer.appendChild(bird);
-}
-function flyBirds(){
-  document.querySelectorAll('.bird').forEach(b=>{
-    let left = parseFloat(b.style.left);
-    left += 1 + Math.random();
-    if(left > window.innerWidth+50) left = -50;
-    b.style.left = left+'px';
-  });
-  requestAnimationFrame(flyBirds);
-}
-flyBirds();
-const kiteBox = document.getElementById('kites');
-
-for(let i=0;i<3;i++){
-  const kite = document.createElement('div');
-  kite.className = 'kite';
-  kite.style.left = `${Math.random()*70 + 10}%`;
-  kite.style.top = `${Math.random()*120 + 40}px`;
-  kite.style.animationDuration = `${3 + Math.random()*3}s`;
-  kiteBox.appendChild(kite);
-}
-</script>
 <script>
-  function startMusic() {
-    const music = document.getElementById("bgMusic");
-    music.play();
+function startMusic(){
+  document.getElementById("bgMusic").play();
+  document.getElementById("musicPrompt").style.display="none";
+}
 
-    // hide the button after tap
-    document.getElementById("musicPrompt").style.display = "none";
-  }
+/* SLIDES + TEXT */
+const slides=document.querySelectorAll(".slideshow img");
+const dialogue=document.getElementById("dialogue");
+let i=0;
+const lines=[
+"The morning wakes up gently… just to see you. 🌅",
+"Sunrise feels warmer when your smile exists. ☀️",
+"As the day grows brighter, so does my admiration for you. 🌼",
+"Even the fields bloom softer when you are near. 🌾",
+"Afternoons feel calm… because thinking of you feels like rest. 🍃",
+"Time slows down when your presence fills the day. ⏳",
+"As the sun leans west, my thoughts still stay with you. 🌤️",
+"Evening whispers your name in the wind. 🌬️",
+"Sunset paints the sky… wishing it could be as beautiful as you. 🌅❤️",
+"And as the day rests, my feelings for you only grow deeper. 🌌💖"
+];
+
+dialogue.innerText=lines[0];
+
+setInterval(()=>{
+slides[i].classList.remove("active");
+i=(i+1)%slides.length;
+slides[i].classList.add("active");
+dialogue.style.opacity=0;
+setTimeout(()=>{
+dialogue.innerText=lines[i%lines.length];
+dialogue.style.opacity=1;
+},800);
+},15000);
+
+/* SUGARCANE */
+const field=document.getElementById("field");
+for(let s=0;s<35;s++){
+ const stalk=document.createElement("div");
+ stalk.className="stalk";
+ stalk.style.left=`${s*3}%`;
+ for(let l=0;l<3;l++){
+  const leaf=document.createElement("div");
+  leaf.className="leaf";
+  leaf.style.top=`${30+l*25}px`;
+  stalk.appendChild(leaf);
+ }
+ field.appendChild(stalk);
+}
+function sway(){
+ document.querySelectorAll(".stalk").forEach((s,i)=>{
+  s.style.transform=`rotate(${Math.sin(Date.now()/800+i)*8}deg)`;
+ });
+ requestAnimationFrame(sway);
+}
+sway();
+
+/* BIRDS */
+const birds=document.getElementById("birds");
+for(let b=0;b<6;b++){
+ const bird=document.createElement("div");
+ bird.className="bird";
+ bird.style.top=`${Math.random()*30+5}%`;
+ bird.style.left=`${-20-Math.random()*40}px`;
+ birds.appendChild(bird);
+}
+function fly(){
+ document.querySelectorAll(".bird").forEach(b=>{
+  b.style.left=(parseFloat(b.style.left)+0.6)+"px";
+  if(parseFloat(b.style.left)>window.innerWidth) b.style.left="-40px";
+ });
+ requestAnimationFrame(fly);
+}
+fly();
 </script>
+
 </body>
 </html>
