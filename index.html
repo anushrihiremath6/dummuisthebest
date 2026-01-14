@@ -12,6 +12,8 @@
       color: #fff;
       min-height: 100vh;
       overflow: hidden;
+      cursor: pointer;
+      touch-action: manipulation;
     }
     #bg-slideshow {
       position: fixed;
@@ -51,11 +53,12 @@
       position: relative;
       width: 90%;
       max-width: 500px;
-      height: 70vh;
-      margin: 20px 0;
+      height: 65vh;
+      margin: 15px 0;
       border-radius: 30px;
       overflow: hidden;
       box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+      background: #111;
     }
     #photo-slideshow {
       position: absolute;
@@ -68,12 +71,13 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity 2.5s ease;
-      mix-blend-mode: screen; /* blends her softly into nature */
+      transition: opacity 2s ease, transform 8s ease;
+      mix-blend-mode: screen;
       filter: brightness(1.1) contrast(1.05);
     }
     #photo-slideshow img.active {
-      opacity: 0.75; /* nature shines through her */
+      opacity: 0.78;
+      transform: scale(1.05);
     }
     .caption {
       font-size: clamp(1.1rem, 4vw, 1.4rem);
@@ -83,12 +87,17 @@
       text-shadow: 0 2px 10px #000;
       margin: 20px auto;
       padding: 15px;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.45);
       border-radius: 15px;
       opacity: 0;
       transform: translateY(30px);
       transition: all 1.2s ease;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(5px);
+      animation: heartbeat 3s infinite ease-in-out;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
     }
     .caption.show {
       opacity: 1;
@@ -99,7 +108,47 @@
       max-width: 800px;
       margin-bottom: 15px;
       color: #f5e8d3;
-      z-index: 3;
+    }
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      user-select: none;
+      z-index: 5;
+    }
+    .left { left: 10px; }
+    .right { right: 10px; }
+    #special-btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1.3rem;
+      background: rgba(255,50,100,0.8);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 1s, transform 0.3s;
+      box-shadow: 0 0 20px rgba(255,100,150,0.6);
+    }
+    #special-btn.visible {
+      opacity: 1;
+    }
+    #special-btn:active {
+      transform: scale(0.95);
+    }
+    .progress-hearts {
+      position: fixed;
+      bottom: 80px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 5px;
+      color: #ff6b6b;
+      opacity: 0.8;
     }
     .heart-btn {
       position: fixed;
@@ -109,65 +158,61 @@
       color: white;
       border: none;
       border-radius: 50%;
-      width: 65px;
-      height: 65px;
-      font-size: 2rem;
+      width: 70px;
+      height: 70px;
+      font-size: 2.2rem;
       cursor: pointer;
       z-index: 10;
-      box-shadow: 0 0 20px rgba(255,80,140,0.6);
+      box-shadow: 0 0 25px rgba(255,80,140,0.7);
     }
-    .heart {
-      position: absolute;
-      font-size: 1.8rem;
-      pointer-events: none;
-      animation: float 12s linear infinite;
-      z-index: 1;
-      opacity: 0.7;
-    }
-    @keyframes float {
-      0% { transform: translateY(110vh) rotate(0deg); }
-      100% { transform: translateY(-30vh) rotate(1080deg); opacity: 0; }
-    }
+    canvas { position: fixed; inset: 0; pointer-events: none; z-index: 3; }
     @media (max-width: 600px) {
-      #photo-container { height: 60vh; max-width: 380px; }
-      .heart-btn { width: 55px; height: 55px; font-size: 1.8rem; bottom: 15px; right: 15px; }
+      #photo-container { height: 55vh; max-width: 380px; }
+      .nav-arrow { font-size: 2.5rem; }
+      .heart-btn { width: 60px; height: 60px; font-size: 2rem; }
     }
   </style>
 </head>
 <body>
+
+  <canvas id="heartCanvas"></canvas>
 
   <div id="bg-slideshow"></div>
   <div class="overlay"></div>
 
   <div class="main-content">
     <div class="intro">
-      Happy Makara Sankranti My Dummmmmmu💘🫠🌞🪁<br>
+      Happy Makara Sankranti 🌞🪁<br>
       In these golden fields and endless skies of harvest joy,<br>
-      your beauty feels right at home — more radiant than any sunrise, freer than any kite...
+      your beauty feels right at home — more radiant than any sunrise...
     </div>
 
     <div id="photo-container">
       <div id="photo-slideshow"></div>
     </div>
 
-    <div class="caption" id="currentCaption"></div>
+    <div class="caption" id="currentCaption">Loading your special moments... 💕</div>
+
+    <button id="special-btn">Tap for My Secret 💕</button>
+
+    <div class="progress-hearts" id="progress"></div>
   </div>
+
+  <span class="nav-arrow left" id="prev">←</span>
+  <span class="nav-arrow right" id="next">→</span>
 
   <button class="heart-btn" id="muteBtn">🔊</button>
 
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" loop muted playsinline>
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    // Nature backgrounds: sugarcane fields, kites, birds, sunrise/sunset (public stock URLs)
+    // Background slideshow
     const bgImages = [
       "https://thumbs.dreamstime.com/b/vibrant-kites-soaring-across-sky-indian-makar-sankranti-festival-fresh-sugarcane-traditional-sesame-vibrant-kites-423586227.jpg",
       "https://thumbs.dreamstime.com/b/orange-dusk-shot-silhouette-buildings-kites-flying-sky-traditional-festival-sankranti-orange-dusk-284611795.jpg",
-      "https://thumbs.dreamstime.com/b/makar-sankranti-festival-celebration-india-children-adults-flying-colorful-kites-rooftops-against-vibrant-sunset-sky-392819946.jpg",
-      "https://thumbs.dreamstime.com/b/children-flying-kite-sunny-field-flowers-grasses-concept-makar-sankranti-339992647.jpg",
-      "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1004017515105769",
-      "https://thumbs.dreamstime.com/b/happy-makar-sankranti-hindu-holiday-dedicated-to-sun-deity-surya-colorful-flying-kites-being-flown-time-expressing-gratitude-297070183.jpg"
+      "https://thumbs.dreamstime.com/b/makar-sankranti-festival-celebration-india-children-adults-flying-colorful-kites-rooftops-against-vibrant-sunset-sky-392819946.jpg"
     ];
 
     const bgContainer = document.getElementById('bg-slideshow');
@@ -176,16 +221,18 @@
       img.src = src;
       bgContainer.appendChild(img);
     });
-    bgContainer.children[0].classList.add('active');
+    if (bgContainer.children.length > 0) bgContainer.children[0].classList.add('active');
 
     let bgIndex = 0;
     setInterval(() => {
-      bgContainer.children[bgIndex].classList.remove('active');
-      bgIndex = (bgIndex + 1) % bgImages.length;
-      bgContainer.children[bgIndex].classList.add('active');
+      if (bgContainer.children.length > 0) {
+        bgContainer.children[bgIndex].classList.remove('active');
+        bgIndex = (bgIndex + 1) % bgImages.length;
+        bgContainer.children[bgIndex].classList.add('active');
+      }
     }, 12000);
 
-    // Your photos + updated messages focused only on her beauty
+    // Photos & Messages
     const photos = [];
     const messages = [
       "As sunrise gilds the sugarcane, birds pause in wonder — jealous, for your glow warms the sky more beautifully than dawn 🌅🐦",
@@ -212,55 +259,147 @@
 
     const photoContainer = document.getElementById('photo-slideshow');
     const captionEl = document.getElementById('currentCaption');
+    const progressEl = document.getElementById('progress');
+    const specialBtn = document.getElementById('special-btn');
 
     for (let i = 1; i <= 20; i++) {
       const img = document.createElement('img');
-      img.src = `photo${i}.jpg`;
+      img.src = `photo${i}.jpg`; // Change if needed
+
+      img.onerror = () => {
+        console.error(`Photo load failed: ${img.src}`);
+        img.src = `https://picsum.photos/seed/photo${i}/400/600`; // fallback
+      };
+
       photos.push(img);
       photoContainer.appendChild(img);
     }
 
     let current = 0;
-    photos[0].classList.add('active');
-    captionEl.textContent = messages[0];
-    setTimeout(() => captionEl.classList.add('show'), 1000);
+    let interval;
 
-    function nextSlide() {
+    function showSlide() {
       captionEl.classList.remove('show');
-      photos[current].classList.remove('active');
+      photos.forEach(img => img.classList.remove('active'));
 
       setTimeout(() => {
+        if (photos[current]) photos[current].classList.add('active');
+        if (messages[current]) {
+          captionEl.textContent = messages[current];
+          captionEl.classList.add('show');
+        }
+
+        progressEl.textContent = '❤️'.repeat(current + 1) + '♡'.repeat(19 - current);
+
+        if (current >= 9) specialBtn.classList.add('visible'); // show after ~10 slides
+
         current = (current + 1) % 20;
-        photos[current].classList.add('active');
-        captionEl.textContent = messages[current];
-        captionEl.classList.add('show');
-      }, 1800);
+      }, 1500);
     }
 
-    setInterval(nextSlide, 8000);
+    function startAuto() {
+      interval = setInterval(showSlide, 6000);
+    }
 
-    // Music control
+    if (photos.length > 0) {
+      showSlide();
+      startAuto();
+    }
+
+    // Navigation
+    document.getElementById('next').onclick = () => {
+      clearInterval(interval);
+      showSlide();
+      startAuto();
+    };
+    document.getElementById('prev').onclick = () => {
+      clearInterval(interval);
+      current = (current - 2 + 20) % 20;
+      showSlide();
+      startAuto();
+    };
+
+    // Special button
+    specialBtn.onclick = () => {
+      specialBtn.textContent = "You Make My Heart Infinite 💖";
+      specialBtn.style.background = "rgba(255,100,150,0.9)";
+      for (let i = 0; i < 80; i++) {
+        setTimeout(() => {
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          particles.push(new Particle(x, y));
+        }, i * 30);
+      }
+      clearInterval(interval); // pause auto after reveal
+    };
+
+    // Canvas for heart/confetti bursts on click
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    let particles = [];
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 12 + 8;
+        this.speedX = Math.random() * 4 - 2;
+        this.speedY = Math.random() * -5 - 3;
+        this.color = ['#ff6b6b', '#ff8e8e', '#ffb3b3', '#ffe4e1'][Math.floor(Math.random()*4)];
+        this.life = 100;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += 0.1;
+        this.life--;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.life / 100;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach((p,i) => {
+        p.update();
+        p.draw();
+        if (p.life <= 0) particles.splice(i,1);
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Click anywhere for burst
+    document.body.addEventListener('click', (e) => {
+      for (let i = 0; i < 20; i++) {
+        particles.push(new Particle(e.clientX, e.clientY));
+      }
+    });
+
+    // Music
     const audio = document.getElementById('bgMusic');
     const muteBtn = document.getElementById('muteBtn');
     audio.volume = 0.25;
-    audio.play().catch(() => {});
+
+    audio.play().catch(() => console.log("Autoplay blocked"));
 
     muteBtn.onclick = () => {
       audio.muted = !audio.muted;
+      if (!audio.muted && audio.paused) audio.play().catch(() => {});
       muteBtn.textContent = audio.muted ? '🔇' : '🔊';
     };
-
-    // Floating hearts
-    function createHeart() {
-      const h = document.createElement('div');
-      h.classList.add('heart');
-      h.innerHTML = '💕';
-      h.style.left = Math.random() * 100 + 'vw';
-      h.style.animationDuration = (Math.random() * 7 + 10) + 's';
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 20000);
-    }
-    setInterval(createHeart, 1800);
   </script>
 </body>
 </html>
