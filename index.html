@@ -4,199 +4,178 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sankranthi for You 🌾💛</title>
+<title>Sankranthi for You Dummmmmmu🌾💛</title>
 
 <style>
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  overflow: hidden;
-  font-family: 'Georgia', serif;
-  transition: background 6s linear;
+body{
+  margin:0;
+  font-family:Georgia,serif;
+  overflow:hidden;
+  transition:background 6s linear;
 }
 
 /* 🌅 SKY STATES */
-body.sunrise {
-  background: linear-gradient(to bottom, #87ceeb, #ffe9a3, #7bc96f, #2e7d32);
-}
-body.noon {
-  background: linear-gradient(to bottom, #6ec6ff, #c8f7ff, #7bc96f, #1b5e20);
-}
-body.sunset {
-  background: linear-gradient(to bottom, #ff9a76, #ffd29d, #7bc96f, #1b5e20);
-}
-body.night {
-  background: linear-gradient(to bottom, #2c3e50, #34495e, #1b5e20);
-}
+body.sunrise{background:linear-gradient(#87ceeb,#ffe9a3,#7bc96f,#2e7d32)}
+body.noon{background:linear-gradient(#6ec6ff,#c8f7ff,#7bc96f,#1b5e20)}
+body.sunset{background:linear-gradient(#ff9a76,#ffd29d,#7bc96f,#1b5e20)}
+body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20)}
 
 /* ☀️ SUN */
-.sun {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fffde7, #fbc02d);
-  box-shadow: 0 0 120px rgba(255,193,7,0.9);
-  transition: top 6s linear, box-shadow 6s;
-  z-index: 2;
+.sun{
+  position:absolute;
+  top:8%;
+  left:50%;
+  transform:translateX(-50%);
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fffde7,#fbc02d);
+  box-shadow:0 0 80px rgba(255,193,7,.9);
+  z-index:2;
+  transition:top 6s;
 }
 
 /* 🏔️ MOUNTAINS */
-.mountains {
-  position: absolute;
-  bottom: 40%;
-  width: 100%;
-  height: 25%;
-  background: linear-gradient(to top, #455a64, #90a4ae);
-  clip-path: polygon(0 100%, 10% 60%, 25% 80%, 40% 50%, 55% 75%, 70% 45%, 85% 70%, 100% 55%, 100% 100%);
-  z-index: 1;
+.mountains{
+  position:absolute;
+  bottom:45%;
+  width:100%;
+  height:22%;
+  background:linear-gradient(to top,#455a64,#90a4ae);
+  clip-path:polygon(0 100%,10% 60%,25% 80%,40% 50%,55% 75%,70% 45%,85% 70%,100% 55%,100% 100%);
+  z-index:1;
+}
+
+/* 💬 DIALOGUE */
+.dialogue{
+  position:absolute;
+  top:22%;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,.95);
+  padding:14px 20px;
+  border-radius:20px;
+  max-width:90%;
+  text-align:center;
+  font-size:1em;
+  z-index:4;
+  transition:opacity 1s;
 }
 
 /* 🖼️ SLIDESHOW */
-.slideshow {
-  position: absolute;
-  bottom: 16%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 280px;
-  height: 380px;
-  border-radius: 24px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
-  z-index: 6;
+.slideshow{
+  position:absolute;
+  bottom:20%;
+  left:50%;
+  transform:translateX(-50%);
+  width:80vw;
+  max-width:280px;
+  height:55vh;
+  max-height:380px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+  z-index:5;
 }
 
-.slideshow img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  opacity: 0;
-  transition: opacity 2s ease, transform 6s ease;
+.slideshow img{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 2s ease,transform 6s ease;
 }
 
-.slideshow img.active {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-/* 💬 DIALOGUE (never overlaps sun) */
-.dialogue {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.95);
-  padding: 18px 26px;
-  border-radius: 22px;
-  max-width: 360px;
-  text-align: center;
-  font-size: 1.05em;
-  line-height: 1.6;
-  z-index: 7;
-  transition: opacity 1.2s ease;
+.slideshow img.active{
+  opacity:1;
+  transform:scale(1.05);
 }
 
 /* 🌾 FIELD */
-.field {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 42%;
-  z-index: 3;
+.field{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:35%;
+  z-index:3;
 }
 
 /* 🌾 SUGARCANE */
-.stalk {
-  position: absolute;
-  bottom: 0;
-  width: 6px;
-  height: 160px;
-  background: linear-gradient(to top, #1b5e20, #4caf50);
-  transform-origin: bottom;
-  border-radius: 3px;
-}
-
-.leaf {
-  position: absolute;
-  width: 20px;
-  height: 6px;
-  background: #388e3c;
-  border-radius: 3px;
-  left: -7px;
-  transform-origin: left center;
+.stalk{
+  position:absolute;
+  bottom:0;
+  width:6px;
+  height:150px;
+  background:linear-gradient(#4caf50,#1b5e20);
+  transform-origin:bottom;
+  border-radius:3px;
 }
 
 /* 🐦 BIRDS */
-.birds {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
+.birds,.kites{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
-.bird {
-  position: absolute;
-  width: 20px;
-  height: 12px;
-  border-top: 2px solid #222;
-  border-radius: 50%;
-  animation: flap 0.6s ease-in-out infinite alternate;
+.bird{
+  position:absolute;
+  width:18px;
+  height:10px;
+  border-top:2px solid #222;
+  border-radius:50%;
+  animation:flap .6s alternate infinite;
 }
 
-@keyframes flap {
-  from { transform: rotate(6deg); }
-  to { transform: rotate(-6deg); }
-}
+@keyframes flap{from{transform:rotate(5deg)}to{transform:rotate(-5deg)}}
 
 /* 🪁 KITES */
-.kites {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
+.kite{
+  position:absolute;
+  width:34px;
+  height:34px;
+  background:linear-gradient(45deg,#ff5252,#ffca28);
+  transform:rotate(45deg);
 }
 
-.kite {
-  position: absolute;
-  width: 38px;
-  height: 38px;
-  background: linear-gradient(45deg, #ff5252, #ffca28);
-  transform: rotate(45deg);
-}
-
-.kite::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 60px;
-  background: rgba(0,0,0,0.3);
-  top: 38px;
-  left: 18px;
+.kite::after{
+  content:'';
+  position:absolute;
+  width:2px;
+  height:50px;
+  background:rgba(0,0,0,.3);
+  top:34px;
+  left:16px;
 }
 
 /* 🎶 MUSIC PROMPT */
-#musicPrompt {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(#87ceeb, #9acd32);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+#musicPrompt{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(#87ceeb,#9acd32);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
 }
 
-#musicPrompt button {
-  padding: 14px 26px;
-  border-radius: 30px;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
+#musicPrompt button{
+  padding:14px 24px;
+  font-size:17px;
+  border-radius:30px;
+  border:none;
+}
+
+/* 📱 MOBILE FIX */
+@media(max-width:768px){
+  body{overflow-y:auto}
+  .sun{width:70px;height:70px}
+  .mountains{bottom:50%;height:18%}
+  .dialogue{top:18%;font-size:.95em}
 }
 </style>
 </head>
@@ -204,7 +183,7 @@ body.night {
 <body class="sunrise">
 
 <div id="musicPrompt">
-  <button onclick="startMusic()">Tap to Begin Sankranthi 🌾🎶</button>
+  <button onclick="startMusic()">Tap to Begin Sankranthi Dummmu🌾🎶</button>
 </div>
 
 <audio id="bgMusic" loop>
@@ -215,11 +194,15 @@ body.night {
 <div class="mountains"></div>
 
 <div class="dialogue" id="dialogue">
-The morning wakes up gently… just to see you. 🌅💛
+The morning wakes up gently… just to see you 🌅💛
 </div>
 
 <div class="slideshow" id="slideshow">
-  <!-- your 20 images -->
+  <img src="photo1.jpg" class="active">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
+  <img src="photo5.jpg">
 </div>
 
 <div class="birds" id="birds"></div>
@@ -229,104 +212,86 @@ The morning wakes up gently… just to see you. 🌅💛
 <script>
 /* 🎶 MUSIC */
 function startMusic(){
-  document.getElementById("bgMusic").play();
-  document.getElementById("musicPrompt").style.display = "none";
+  bgMusic.play();
+  musicPrompt.style.display="none";
 }
 
 /* 🌅 SLIDES + SKY */
-const slides = document.querySelectorAll('.slideshow img');
-const dialogue = document.getElementById('dialogue');
-const sun = document.getElementById('sun');
+const slides=document.querySelectorAll(".slideshow img");
+const dialogue=document.getElementById("dialogue");
+const sun=document.getElementById("sun");
 
-const lines = [
-  "The morning wakes up gently… just to see you. 🌅💛",
-  "Sunrise feels warmer when your smile exists ☀️😊",
-  "As the day grows brighter, so does my admiration 💫",
-  "Even the fields bloom softer when you are near 🌾💚",
-  "Afternoons feel calm… thinking of you feels like rest 🌤️",
-  "Time slows down when your presence fills the day ⏳💛",
-  "As the sun leans west, my thoughts stay with you 🌇",
-  "Evening whispers your name in the wind 🌬️💞",
-  "Sunset wishes it could be as beautiful as you 🌅✨",
-  "And as the day rests, my feelings only grow deeper 🌙💛"
+const lines=[
+"The morning wakes up gently… just to see you 🌅💛",
+"Sunrise feels warmer when your smile exists ☀️😊",
+"As the day grows brighter, so does my admiration 💫",
+"Even the fields bloom softer when you are near 🌾💚",
+"Afternoons feel calm… thinking of you feels like rest 🌤️",
+"Time slows down when your presence fills the day ⏳💛",
+"As the sun leans west, my thoughts stay with you 🌇",
+"Evening whispers your name in the wind 🌬️💞",
+"Sunset wishes it could be as beautiful as you 🌅✨",
+"And as the day rests, my feelings grow deeper 🌙💛"
 ];
 
-let i = 0;
-
+let i=0;
 setInterval(()=>{
-  slides[i]?.classList.remove('active');
-  i = (i + 1) % slides.length;
-  slides[i]?.classList.add('active');
+  slides[i].classList.remove("active");
+  i=(i+1)%slides.length;
+  slides[i].classList.add("active");
 
-  dialogue.style.opacity = 0;
+  dialogue.style.opacity=0;
   setTimeout(()=>{
-    dialogue.innerText = lines[i % lines.length];
-    dialogue.style.opacity = 1;
-  }, 800);
+    dialogue.textContent=lines[i%lines.length];
+    dialogue.style.opacity=1;
+  },600);
 
-  if(i === 3){ document.body.className = "noon"; sun.style.top="12%"; }
-  if(i === 7){ document.body.className = "sunset"; sun.style.top="28%"; }
-  if(i === 9){ document.body.className = "night"; sun.style.top="45%"; }
+  if(i===2){document.body.className="noon";sun.style.top="10%"}
+  if(i===6){document.body.className="sunset";sun.style.top="25%"}
+  if(i===9){document.body.className="night";sun.style.top="40%"}
 
-}, 15000);
+},15000);
 
-/* 🌾 SUGARCANE SWAY */
-const field = document.getElementById('field');
+/* 🌾 SUGARCANE */
 for(let s=0;s<40;s++){
-  const stalk=document.createElement('div');
-  stalk.className='stalk';
-  stalk.style.left=`${s*25}px`;
-  for(let l=0;l<3;l++){
-    const leaf=document.createElement('div');
-    leaf.className='leaf';
-    leaf.style.top=`${20+l*30}px`;
-    stalk.appendChild(leaf);
-  }
+  const stalk=document.createElement("div");
+  stalk.className="stalk";
+  stalk.style.left=s*25+"px";
   field.appendChild(stalk);
 }
-
 (function sway(){
-  document.querySelectorAll('.stalk').forEach((s,i)=>{
+  document.querySelectorAll(".stalk").forEach((s,i)=>{
     s.style.transform=`rotate(${Math.sin(Date.now()/1000+i)*8}deg)`;
   });
   requestAnimationFrame(sway);
 })();
 
 /* 🐦 BIRDS */
-const birds=document.getElementById('birds');
 for(let b=0;b<6;b++){
-  const bird=document.createElement('div');
-  bird.className='bird';
-  bird.style.top=`${Math.random()*200+40}px`;
-  bird.style.left=`${-100-Math.random()*200}px`;
+  const bird=document.createElement("div");
+  bird.className="bird";
+  bird.style.top=Math.random()*200+40+"px";
+  bird.style.left=-100-Math.random()*200+"px";
   birds.appendChild(bird);
 }
 (function fly(){
-  document.querySelectorAll('.bird').forEach(b=>{
+  document.querySelectorAll(".bird").forEach(b=>{
     let x=parseFloat(b.style.left);
     x+=1.5;
-    if(x>window.innerWidth+50) x=-100;
-    b.style.left=x+'px';
+    if(x>innerWidth+50)x=-100;
+    b.style.left=x+"px";
   });
   requestAnimationFrame(fly);
 })();
 
 /* 🪁 KITES */
-const kites=document.getElementById('kites');
 for(let k=0;k<3;k++){
-  const kite=document.createElement('div');
-  kite.className='kite';
-  kite.style.left=`${Math.random()*80}%`;
-  kite.style.top=`${Math.random()*150+60}px`;
+  const kite=document.createElement("div");
+  kite.className="kite";
+  kite.style.left=Math.random()*80+"%";
+  kite.style.top=Math.random()*150+60+"px";
   kites.appendChild(kite);
 }
-
-(function floatKites(){
-  document.querySelectorAll('.kite').forEach((k,i)=>{
-    k.style.transform=`translateY(${Math.sin(Date.now()/1200+i)*15}px) rotate(45deg)`;
-  });
-  requestAnimationFrame(floatKites);
-})();
 </script>
 
 </body>
