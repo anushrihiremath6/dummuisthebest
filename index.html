@@ -177,6 +177,40 @@ body.night{background:linear-gradient(#2c3e50,#34495e,#1b5e20)}
   .mountains{bottom:50%;height:18%}
   .dialogue{top:18%;font-size:.95em}
 }
+.sankranti-wish {
+  position: absolute;
+  top: 18%;
+  width: 100%;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  color: #fff8e1;
+  font-size: 1.8em;
+  letter-spacing: 1px;
+  text-shadow: 0 0 15px rgba(255,193,7,0.9);
+  animation: wishFade 6s ease-in-out forwards;
+}
+
+.sankranti-wish span {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8em;
+  opacity: 0.9;
+}
+
+@keyframes wishFade {
+  0% { opacity: 0; transform: translateY(20px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* 📱 MOBILE FIX */
+@media (max-width: 768px) {
+  .sankranti-wish {
+    top: 12%;
+    font-size: 1.3em;
+  }
+}
 </style>
 </head>
 
