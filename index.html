@@ -1,342 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>To My Beautiful Sankranti Light 🌞🪁❤️</title>
-
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
-:root {
-  --vh: 1vh;
-}
-
-body {
-  font-family: 'Georgia', serif;
-  background: #0a1621;
-  color: #fff;
-  overflow: hidden;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-/* Background */
-#bg-slideshow {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-}
-#bg-slideshow img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 3.5s ease-in-out;
-}
-#bg-slideshow img.active { opacity: 0.9; }
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.65));
-  z-index: -1;
-}
-
-/* Main */
-.main-content {
-  position: relative;
-  z-index: 5;
-  height: calc(var(--vh) * 100);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 12px;
-}
-
-.intro {
-  font-size: clamp(1rem, 4.5vw, 1.4rem);
-  line-height: 1.5;
-  max-width: 900px;
-  margin-bottom: 12px;
-  color: #f5e8d3;
-  padding: 0 10px;
-}
-
-/* Photo */
-#photo-container {
-  position: relative;
-  width: 95%;
-  max-width: 420px;
-  height: min(60vh, 420px);
-  border-radius: 26px;
-  overflow: hidden;
-  margin: 12px 0;
-  box-shadow: 0 15px 50px rgba(0,0,0,0.8);
-  background: #111;
-}
-
-#photo-slideshow img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 2s ease, transform 8s ease;
-  mix-blend-mode: screen;
-}
-#photo-slideshow img.active {
-  opacity: 0.8;
-  transform: scale(1.05);
-}
-
-/* Caption */
-.caption {
-  font-size: clamp(1rem, 4vw, 1.3rem);
-  max-width: 90%;
-  line-height: 1.6;
-  color: #ffe9c7;
-  text-shadow: 0 2px 10px #000;
-  margin: 14px auto;
-  padding: 12px;
-  background: rgba(0,0,0,0.55);
-  border-radius: 15px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 1.2s ease;
-  backdrop-filter: blur(6px);
-  animation: heartbeat 3s infinite ease-in-out;
-}
-
-@keyframes heartbeat {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
-.caption.show { opacity: 1; transform: translateY(0); }
-
-/* Buttons */
-#special-btn {
-  margin-top: 14px;
-  padding: 12px 28px;
-  font-size: 1.2rem;
-  background: rgba(255,50,100,0.85);
-  border: none;
-  border-radius: 50px;
-  color: white;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 1s, transform 0.3s;
-  box-shadow: 0 0 20px rgba(255,100,150,0.6);
-}
-#special-btn.visible { opacity: 1; }
-#special-btn:active { transform: scale(0.95); }
-
-.progress-hearts {
-  position: fixed;
-  bottom: 110px;
-  width: 100%;
-  text-align: center;
-  font-size: 1.2rem;
-  letter-spacing: 4px;
-  color: #ff6b6b;
-  opacity: 0.85;
-  z-index: 5;
-}
-
-/* Arrows */
-.nav-arrow {
-  position: fixed;
-  bottom: 45%;
-  font-size: 2.2rem;
-  color: rgba(255,255,255,0.6);
-  cursor: pointer;
-  z-index: 6;
-}
-.left { left: 10px; }
-.right { right: 10px; }
-
-/* Music */
-.heart-btn {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  background: rgba(210, 40, 90, 0.85);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 0 25px rgba(255,80,140,0.7);
-}
-
-canvas {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Extra small phones */
-@media (max-width: 380px) {
-  #photo-container { height: 52vh; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>To My Beautiful Sankranti Light 🌞🪁❤️</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Georgia', serif;
+      background: #0a1621;
+      color: #fff;
+      min-height: 100vh;
+      overflow: hidden;
+      cursor: pointer; /* encourages interaction */
+    }
+    #bg-slideshow {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+    }
+    #bg-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+      transition: opacity 3.5s ease-in-out;
+    }
+    #bg-slideshow img.active {
+      opacity: 1;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+      z-index: -1;
+    }
+    .main-content {
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 15px;
+    }
+    #photo-container {
+      position: relative;
+      width: 90%;
+      max-width: 500px;
+      height: 65vh;
+      margin: 15px 0;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+    }
+    #photo-slideshow {
+      position: absolute;
+      inset: 0;
+    }
+    #photo-slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 2s ease, transform 8s ease;
+      mix-blend-mode: screen;
+      filter: brightness(1.1) contrast(1.05);
+    }
+    #photo-slideshow img.active {
+      opacity: 0.78;
+      transform: scale(1.05); /* gentle zoom for life */
+    }
+    .caption {
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      max-width: 90%;
+      line-height: 1.6;
+      color: #ffe9c7;
+      text-shadow: 0 2px 10px #000;
+      margin: 20px auto;
+      padding: 15px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 15px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease;
+      backdrop-filter: blur(5px);
+      animation: heartbeat 3s infinite ease-in-out;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .caption.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .intro {
+      font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+      max-width: 800px;
+      margin-bottom: 15px;
+      color: #f5e8d3;
+    }
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      user-select: none;
+      z-index: 5;
+    }
+    .left { left: 10px; }
+    .right { right: 10px; }
+    #special-btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1.3rem;
+      background: rgba(255,50,100,0.8);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 1s;
+      box-shadow: 0 0 20px rgba(255,100,150,0.6);
+    }
+    #special-btn.visible {
+      opacity: 1;
+    }
+    .progress-hearts {
+      position: fixed;
+      bottom: 80px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5rem;
+      letter-spacing: 5px;
+      color: #ff6b6b;
+      opacity: 0.8;
+    }
+    .heart-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(210, 40, 90, 0.85);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 0 20px rgba(255,80,140,0.6);
+    }
+    canvas { position: fixed; inset: 0; pointer-events: none; z-index: 3; }
+    @media (max-width: 600px) {
+      #photo-container { height: 55vh; max-width: 380px; }
+      .nav-arrow { font-size: 2.5rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-<canvas id="heartCanvas"></canvas>
+  <canvas id="heartCanvas"></canvas>
 
-<div id="bg-slideshow"></div>
-<div class="overlay"></div>
+  <div id="bg-slideshow"></div>
+  <div class="overlay"></div>
 
-<div class="main-content">
-  <div class="intro">
-    Happy Makara Sankranti Dummmmmu🫠🌞🪁<br>
-    In these golden fields and endless skies of harvest joy,<br>
-    your beauty feels right at home — more radiant than any sunrise...
+  <div class="main-content">
+    <div class="intro">
+      Happy Makara Sankranti 🌞🪁<br>
+      In these golden fields and endless skies of harvest joy,<br>
+      your beauty feels right at home — more radiant than any sunrise...
+    </div>
+
+    <div id="photo-container">
+      <div id="photo-slideshow"></div>
+    </div>
+
+    <div class="caption" id="currentCaption"></div>
+
+    <button id="special-btn">Tap for My Secret 💕</button>
+
+    <div class="progress-hearts" id="progress"></div>
   </div>
 
-  <div id="photo-container">
-    <div id="photo-slideshow"></div>
-  </div>
+  <span class="nav-arrow left" id="prev">←</span>
+  <span class="nav-arrow right" id="next">→</span>
 
-  <div class="caption" id="currentCaption">Loading your special moments... 💕</div>
+  <button class="heart-btn" id="muteBtn">🔊</button>
 
-  <button id="special-btn">Tap for My Secret 💕</button>
-  <div class="progress-hearts" id="progress"></div>
-</div>
+  <audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
 
-<span class="nav-arrow left" id="prev">←</span>
-<span class="nav-arrow right" id="next">→</span>
+  <script>
+    // Background slideshow (unchanged)
+    const bgImages = [
+      "https://thumbs.dreamstime.com/b/vibrant-kites-soaring-across-sky-indian-makar-sankranti-festival-fresh-sugarcane-traditional-sesame-vibrant-kites-423586227.jpg",
+      "https://thumbs.dreamstime.com/b/orange-dusk-shot-silhouette-buildings-kites-flying-sky-traditional-festival-sankranti-orange-dusk-284611795.jpg",
+      "https://thumbs.dreamstime.com/b/makar-sankranti-festival-celebration-india-children-adults-flying-colorful-kites-rooftops-against-vibrant-sunset-sky-392819946.jpg",
+      "https://thumbs.dreamstime.com/b/children-flying-kite-sunny-field-flowers-grasses-concept-makar-sankranti-339992647.jpg",
+      "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1004017515105769",
+      "https://thumbs.dreamstime.com/b/happy-makar-sankranti-hindu-holiday-dedicated-to-sun-deity-surya-colorful-flying-kites-being-flown-time-expressing-gratitude-297070183.jpg"
+    ];
 
-<button class="heart-btn" id="muteBtn">🔊</button>
+    const bgContainer = document.getElementById('bg-slideshow');
+    bgImages.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      bgContainer.appendChild(img);
+    });
+    bgContainer.children[0].classList.add('active');
+    let bgIndex = 0;
+    setInterval(() => {
+      bgContainer.children[bgIndex].classList.remove('active');
+      bgIndex = (bgIndex + 1) % bgImages.length;
+      bgContainer.children[bgIndex].classList.add('active');
+    }, 12000);
 
-<audio id="bgMusic" loop playsinline preload="auto" muted>
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
+    // Photos & messages (unchanged)
+    const photos = [];
+    const messages = [
+      "As sunrise gilds the sugarcane, birds pause in wonder — jealous, for your glow warms the sky more beautifully than dawn 🌅🐦",
+      "Kites soar freely, yet they falter mid-flight... captivated by a beauty that outshines every color in the heavens 🪁💛",
+      "Golden afternoon light dances on the fields, but birds circle closer — envious of the effortless radiance you carry ☀️",
+      "Sugarcane whispers its sweetness, yet bows in quiet awe... your presence is the truest nectar 🌾❤️",
+      "Birds glide through endless blue, slowing to admire — how can wings compare to your graceful light? 🕊️",
+      "In harvest's warm embrace, every ray turns toward you — nature's silent tribute to unmatched beauty 🍯",
+      "Kites twirl in delight, but waver... distracted by a grace that makes the whole sky feel alive 🪁✨",
+      "Sunset paints the world in fire, yet birds glance back — your warmth lingers longer, deeper 🌇",
+      "Wings may tire across vast skies, but your spirit lifts everything with effortless charm ❤️",
+      "Fields bloom golden under the sun, yet birds flock nearer — longing to share in your captivating glow 🌾🐦",
+      "A kite climbs too high... only to realize true elevation lives in a smile as beautiful as yours 🪁😊",
+      "Morning melodies hush — struck silent by a beauty more enchanting than any song 🌄",
+      "Sugarcane sways gently, almost shy... aware nothing matches your quiet, radiant elegance 🌱",
+      "Kites play in friendly skies, secretly competing for the gaze your beauty commands 🪁💕",
+      "Sunrise birds spread wide, but hesitate in envy — your light arrives softer, more breathtaking 🌅",
+      "Swift flyers circle the heavens, yet return again... drawn irresistibly to your glow 🕊️",
+      "Afternoon gold deepens in blush when it meets you ✨",
+      "Birds chase endless winds, but always return — freedom pales without your light ❤️",
+      "Kites rise boldly with the breeze, dipping low... as if in quiet reverence to your beauty 🪁🌞",
+      "On this day of harvest joy, nature celebrates — but quietly whispers: your radiance is its greatest gift 💛"
+    ];
 
-<script>
-/* Fix mobile VH */
-function setVH() {
-  document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-}
-setVH();
-window.addEventListener('resize', setVH);
+    const photoContainer = document.getElementById('photo-slideshow');
+    const captionEl = document.getElementById('currentCaption');
+    const progressEl = document.getElementById('progress');
+    const specialBtn = document.getElementById('special-btn');
 
-/* Background */
-const bgImages = [
-  "https://thumbs.dreamstime.com/b/vibrant-kites-soaring-across-sky-indian-makar-sankranti-festival-fresh-sugarcane-traditional-sesame-vibrant-kites-423586227.jpg",
-  "https://thumbs.dreamstime.com/b/orange-dusk-shot-silhouette-buildings-kites-flying-sky-traditional-festival-sankranti-orange-dusk-284611795.jpg",
-  "https://thumbs.dreamstime.com/b/makar-sankranti-festival-celebration-india-children-adults-flying-colorful-kites-rooftops-against-vibrant-sunset-sky-392819946.jpg"
-];
-const bg = document.getElementById("bg-slideshow");
-bgImages.forEach(src => {
-  const img = document.createElement("img");
-  img.src = src;
-  bg.appendChild(img);
-});
-let bgIndex = 0;
-bg.children[0].classList.add("active");
-setInterval(() => {
-  bg.children[bgIndex].classList.remove("active");
-  bgIndex = (bgIndex + 1) % bg.children.length;
-  bg.children[bgIndex].classList.add("active");
-}, 12000);
+    for (let i = 1; i <= 20; i++) {
+      const img = document.createElement('img');
+      img.src = `photos/photo${i}.jpg`;
+      photos.push(img);
+      photoContainer.appendChild(img);
+    }
 
-/* Slides */
-const messages = [...Array(20)].map((_,i)=>`Slide ${i+1} ❤️`);
-const photoWrap = document.getElementById("photo-slideshow");
-const caption = document.getElementById("currentCaption");
-const progress = document.getElementById("progress");
-const specialBtn = document.getElementById("special-btn");
+    let current = 0;
+    let interval;
 
-const photos = [];
-for(let i=1;i<=20;i++){
-  const img=document.createElement("img");
-  img.src=`photo${i}.jpg`;
-  img.onerror=()=>img.src=`https://picsum.photos/seed/${i}/400/600`;
-  photoWrap.appendChild(img);
-  photos.push(img);
-}
+    function showSlide(manual = false) {
+      captionEl.classList.remove('show');
+      photos[current].classList.remove('active');
 
-let current=0, timer;
-function showSlide(){
-  caption.classList.remove("show");
-  photos.forEach(p=>p.classList.remove("active"));
-  setTimeout(()=>{
-    photos[current].classList.add("active");
-    caption.textContent = messages[current];
-    caption.classList.add("show");
-    progress.textContent = "❤️".repeat(current+1)+"♡".repeat(19-current);
-    if(current>=9) specialBtn.classList.add("visible");
-    current=(current+1)%20;
-  },1000);
-}
-showSlide();
-timer=setInterval(showSlide,6000);
+      setTimeout(() => {
+        current = (current + (manual ? 1 : 1)) % 20;
+        if (current < 0) current = 19;
+        photos[current].classList.add('active');
+        captionEl.textContent = messages[current];
+        captionEl.classList.add('show');
 
-/* Nav */
-prev.onclick=()=>{clearInterval(timer);current=(current-2+20)%20;showSlide();timer=setInterval(showSlide,6000);}
-next.onclick=()=>{clearInterval(timer);showSlide();timer=setInterval(showSlide,6000);}
+        // Update progress hearts
+        progressEl.textContent = '❤️'.repeat(current + 1) + '♡'.repeat(19 - current);
 
-/* Canvas hearts */
-const canvas=document.getElementById("heartCanvas");
-const ctx=canvas.getContext("2d");
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
-resize();window.onresize=resize;
+        // Show special button after ~10 slides or so
+        if (current >= 10) specialBtn.classList.add('visible');
+      }, 1500);
+    }
 
-let particles=[];
-class Particle{
-  constructor(x,y){
-    this.x=x;this.y=y;
-    this.vx=Math.random()*4-2;
-    this.vy=Math.random()*-5-3;
-    this.life=100;
-    this.size=Math.random()*10+6;
-  }
-  update(){this.x+=this.vx;this.y+=this.vy;this.vy+=0.1;this.life--}
-  draw(){
-    ctx.globalAlpha=this.life/100;
-    ctx.fillStyle="#ff8e8e";
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fill();
-  }
-}
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach((p,i)=>{p.update();p.draw();if(p.life<=0)particles.splice(i,1)});
-  requestAnimationFrame(animate);
-}
-animate();
+    function startAuto() {
+      interval = setInterval(showSlide, 6000); // faster for engagement
+    }
 
-document.body.addEventListener("click",e=>{
-  const count=innerWidth<600?10:20;
-  for(let i=0;i<count;i++)particles.push(new Particle(e.clientX,e.clientY));
-});
+    startAuto();
 
-/* Music */
-const audio=document.getElementById("bgMusic");
-const mute=document.getElementById("muteBtn");
-document.body.addEventListener("touchstart",()=>{
-  audio.muted=false;
-  audio.play().catch(()=>{});
-  mute.textContent="🔊";
-},{once:true});
-mute.onclick=()=>{
-  audio.muted=!audio.muted;
-  mute.textContent=audio.muted?"🔇":"🔊";
-};
-</script>
+    // Manual navigation
+    document.getElementById('next').onclick = () => {
+      clearInterval(interval);
+      showSlide(true);
+      startAuto(); // restart auto after interaction
+    };
+    document.getElementById('prev').onclick = () => {
+      clearInterval(interval);
+      current -= 2; // to go back one
+      showSlide(true);
+      startAuto();
+    };
 
+    // Click anywhere for heart burst
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    let particles = [];
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 12 + 8;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * -3 - 2;
+        this.color = ['#ff6b6b', '#ff8e8e', '#ffb3b3'][Math.floor(Math.random()*3)];
+        this.life = 80;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += 0.08; // gravity
+        this.life--;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.life / 80;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y - this.size);
+        ctx.bezierCurveTo(this.x + this.size/2, this.y - this.size*1.3, this.x + this.size*1.5, this.y, this.x, this.y + this.size);
+        ctx.bezierCurveTo(this.x - this.size*1.5, this.y, this.x - this.size/2, this.y - this.size*1.3, this.x, this.y - this.size);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach((p,i) => {
+        p.update();
+        p.draw();
+        if (p.life <= 0) particles.splice(i,1);
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    document.body.addEventListener('click', (e) => {
+      for (let i = 0; i < 15; i++) {
+        particles.push(new Particle(e.clientX, e.clientY));
+      }
+    });
+
+    // Special button
+    specialBtn.onclick = () => {
+      specialBtn.textContent = "You Make My Heart Infinite 💖";
+      for (let i = 0; i < 100; i++) {
+        setTimeout(() => {
+          particles.push(new Particle(Math.random()*canvas.width, Math.random()*canvas.height));
+        }, i*20);
+      }
+      // Optional: stop auto & show forever message
+      clearInterval(interval);
+    };
+
+    // Music
+    const audio = document.getElementById('bgMusic');
+    const muteBtn = document.getElementById('muteBtn');
+    audio.volume = 0.25;
+    audio.play().catch(() => {});
+
+    muteBtn.onclick = () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? '🔇' : '🔊';
+    };
+  </script>
 </body>
 </html>
