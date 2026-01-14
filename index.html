@@ -2,102 +2,73 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Immersive Sankranthi Experience 🌾</title>
+<title>Sankranthi for You 🌾💛</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
+  overflow: hidden;
   font-family: 'Georgia', serif;
-  background: linear-gradient(to bottom, #87ceeb 0%, #ffe9a3 45%, #7bc96f 60%, #2e7d32 100%);
   transition: background 6s linear;
-  overflow-x: hidden;
 }
 
-/* MUSIC PROMPT */
-#musicPrompt {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(#87ceeb, #9acd32);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+/* 🌅 SKY STATES */
+body.sunrise {
+  background: linear-gradient(to bottom, #87ceeb, #ffe9a3, #7bc96f, #2e7d32);
 }
-#musicPrompt button {
-  font-size: 18px;
-  padding: 14px 26px;
-  border: none;
-  border-radius: 30px;
-  background: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+body.noon {
+  background: linear-gradient(to bottom, #6ec6ff, #c8f7ff, #7bc96f, #1b5e20);
+}
+body.sunset {
+  background: linear-gradient(to bottom, #ff9a76, #ffd29d, #7bc96f, #1b5e20);
+}
+body.night {
+  background: linear-gradient(to bottom, #2c3e50, #34495e, #1b5e20);
 }
 
-/* INTRO */
-#intro {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(#ffecb3, #c8e6c9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  animation: introFade 6s forwards;
-  text-align: center;
-  padding: 20px;
-}
-
-@keyframes introFade {
-  0%,80% {opacity:1}
-  100% {opacity:0; pointer-events:none}
-}
-
-/* SUN */
+/* ☀️ SUN */
 .sun {
   position: absolute;
-  top: 8vh;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 20vw;
-  max-width: 120px;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, #fffde7, #fbc02d);
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  box-shadow: 0 0 100px rgba(255,193,7,.9);
-  z-index: 1;
+  background: radial-gradient(circle, #fffde7, #fbc02d);
+  box-shadow: 0 0 120px rgba(255,193,7,0.9);
+  transition: top 6s linear, box-shadow 6s;
+  z-index: 2;
 }
 
-/* MOUNTAINS */
+/* 🏔️ MOUNTAINS */
 .mountains {
   position: absolute;
   bottom: 40%;
   width: 100%;
   height: 25%;
   background: linear-gradient(to top, #455a64, #90a4ae);
-  clip-path: polygon(0 100%, 10% 55%, 25% 75%, 40% 45%, 55% 70%, 70% 40%, 85% 65%, 100% 50%, 100% 100%);
+  clip-path: polygon(0 100%, 10% 60%, 25% 80%, 40% 50%, 55% 75%, 70% 45%, 85% 70%, 100% 55%, 100% 100%);
   z-index: 1;
 }
 
-/* SLIDESHOW */
+/* 🖼️ SLIDESHOW */
 .slideshow {
   position: absolute;
-  bottom: 20%;
+  bottom: 16%;
   left: 50%;
   transform: translateX(-50%);
-  width: 80vw;
-  max-width: 300px;
-  aspect-ratio: 3/4;
+  width: 280px;
+  height: 380px;
   border-radius: 24px;
   overflow: hidden;
-  background: white;
-  box-shadow: 0 25px 60px rgba(0,0,0,.45);
-  z-index: 5;
+  background: #fff;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+  z-index: 6;
 }
 
 .slideshow img {
@@ -114,96 +85,126 @@ body {
   transform: scale(1.05);
 }
 
-/* DIALOGUE */
+/* 💬 DIALOGUE (never overlaps sun) */
 .dialogue {
   position: absolute;
-  top: 10%;
+  top: 35%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255,255,255,.95);
-  padding: 18px 22px;
+  background: rgba(255,255,255,0.95);
+  padding: 18px 26px;
   border-radius: 22px;
-  width: 85%;
-  max-width: 380px;
+  max-width: 360px;
   text-align: center;
-  font-size: 1.05rem;
-  z-index: 6;
+  font-size: 1.05em;
+  line-height: 1.6;
+  z-index: 7;
+  transition: opacity 1.2s ease;
 }
 
-/* FIELD */
+/* 🌾 FIELD */
 .field {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 40%;
-  z-index: 2;
+  height: 42%;
+  z-index: 3;
 }
 
-/* SUGARCANE */
+/* 🌾 SUGARCANE */
 .stalk {
   position: absolute;
   bottom: 0;
   width: 6px;
   height: 160px;
-  background: linear-gradient(#4caf50, #1b5e20);
+  background: linear-gradient(to top, #1b5e20, #4caf50);
   transform-origin: bottom;
+  border-radius: 3px;
 }
+
 .leaf {
   position: absolute;
-  width: 22px;
+  width: 20px;
   height: 6px;
   background: #388e3c;
-  top: 30%;
-  left: -8px;
+  border-radius: 3px;
+  left: -7px;
   transform-origin: left center;
 }
 
-/* BIRDS */
+/* 🐦 BIRDS */
 .birds {
-  position: fixed;
+  position: absolute;
   inset: 0;
+  z-index: 4;
   pointer-events: none;
-  z-index: 3;
 }
+
 .bird {
   position: absolute;
   width: 20px;
-  height: 10px;
+  height: 12px;
   border-top: 2px solid #222;
   border-radius: 50%;
+  animation: flap 0.6s ease-in-out infinite alternate;
 }
 
-/* KITES */
-.kites {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
+@keyframes flap {
+  from { transform: rotate(6deg); }
+  to { transform: rotate(-6deg); }
 }
+
+/* 🪁 KITES */
+.kites {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
 .kite {
   position: absolute;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   background: linear-gradient(45deg, #ff5252, #ffca28);
   transform: rotate(45deg);
-  animation: kite 4s ease-in-out infinite alternate;
 }
-@keyframes kite {
-  from {transform: translateY(0) rotate(40deg)}
-  to {transform: translateY(-20px) rotate(50deg)}
+
+.kite::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 60px;
+  background: rgba(0,0,0,0.3);
+  top: 38px;
+  left: 18px;
+}
+
+/* 🎶 MUSIC PROMPT */
+#musicPrompt {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(#87ceeb, #9acd32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#musicPrompt button {
+  padding: 14px 26px;
+  border-radius: 30px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
 }
 </style>
 </head>
 
-<body>
+<body class="sunrise">
 
 <div id="musicPrompt">
-  <button onclick="startMusic()">Tap to begin this Sankranthi 🌾💛🎶</button>
-</div>
-
-<div id="intro">
-  <h1>Happy Makar Sankranthi Dummmmmmmmu 🌾</h1>
-  <p>This festival feels brighter… because of you.</p>
+  <button onclick="startMusic()">Tap to Begin Sankranthi 🌾🎶</button>
 </div>
 
 <audio id="bgMusic" loop>
@@ -213,110 +214,119 @@ body {
 <div class="sun" id="sun"></div>
 <div class="mountains"></div>
 
-<div class="slideshow" id="slideshow">
-  <!-- keep your 20 images -->
-  <img src="photo1.jpg" class="active">
-  <img src="photo2.jpg">
-  <img src="photo3.jpg">
-  <img src="photo4.jpg">
-  <img src="photo5.jpg">
-  <img src="photo6.jpg">
-  <img src="photo7.jpg">
-  <img src="photo8.jpg">
-  <img src="photo9.jpg">
-  <img src="photo10.jpg">
-  <img src="photo11.jpg">
-  <img src="photo12.jpg">
-  <img src="photo13.jpg">
-  <img src="photo14.jpg">
-  <img src="photo15.jpg">
-  <img src="photo16.jpg">
-  <img src="photo17.jpg">
-  <img src="photo18.jpg">
-  <img src="photo19.jpg">
-  <img src="photo20.jpg">
+<div class="dialogue" id="dialogue">
+The morning wakes up gently… just to see you. 🌅💛
 </div>
 
-<div class="dialogue" id="dialogue"></div>
-<div class="field" id="field"></div>
+<div class="slideshow" id="slideshow">
+  <!-- your 20 images -->
+</div>
+
 <div class="birds" id="birds"></div>
 <div class="kites" id="kites"></div>
+<div class="field" id="field"></div>
 
 <script>
+/* 🎶 MUSIC */
 function startMusic(){
   document.getElementById("bgMusic").play();
-  document.getElementById("musicPrompt").style.display="none";
+  document.getElementById("musicPrompt").style.display = "none";
 }
 
-/* SLIDES + TEXT */
-const slides=document.querySelectorAll(".slideshow img");
-const dialogue=document.getElementById("dialogue");
-let i=0;
-const lines=[
-"The morning wakes up gently… just to see you. 🌅",
-"Sunrise feels warmer when your smile exists. ☀️",
-"As the day grows brighter, so does my admiration for you. 🌼",
-"Even the fields bloom softer when you are near. 🌾",
-"Afternoons feel calm… because thinking of you feels like rest. 🍃",
-"Time slows down when your presence fills the day. ⏳",
-"As the sun leans west, my thoughts still stay with you. 🌤️",
-"Evening whispers your name in the wind. 🌬️",
-"Sunset paints the sky… wishing it could be as beautiful as you. 🌅❤️",
-"And as the day rests, my feelings for you only grow deeper. 🌌💖"
+/* 🌅 SLIDES + SKY */
+const slides = document.querySelectorAll('.slideshow img');
+const dialogue = document.getElementById('dialogue');
+const sun = document.getElementById('sun');
+
+const lines = [
+  "The morning wakes up gently… just to see you. 🌅💛",
+  "Sunrise feels warmer when your smile exists ☀️😊",
+  "As the day grows brighter, so does my admiration 💫",
+  "Even the fields bloom softer when you are near 🌾💚",
+  "Afternoons feel calm… thinking of you feels like rest 🌤️",
+  "Time slows down when your presence fills the day ⏳💛",
+  "As the sun leans west, my thoughts stay with you 🌇",
+  "Evening whispers your name in the wind 🌬️💞",
+  "Sunset wishes it could be as beautiful as you 🌅✨",
+  "And as the day rests, my feelings only grow deeper 🌙💛"
 ];
 
-dialogue.innerText=lines[0];
+let i = 0;
 
 setInterval(()=>{
-slides[i].classList.remove("active");
-i=(i+1)%slides.length;
-slides[i].classList.add("active");
-dialogue.style.opacity=0;
-setTimeout(()=>{
-dialogue.innerText=lines[i%lines.length];
-dialogue.style.opacity=1;
-},800);
-},15000);
+  slides[i]?.classList.remove('active');
+  i = (i + 1) % slides.length;
+  slides[i]?.classList.add('active');
 
-/* SUGARCANE */
-const field=document.getElementById("field");
-for(let s=0;s<35;s++){
- const stalk=document.createElement("div");
- stalk.className="stalk";
- stalk.style.left=`${s*3}%`;
- for(let l=0;l<3;l++){
-  const leaf=document.createElement("div");
-  leaf.className="leaf";
-  leaf.style.top=`${30+l*25}px`;
-  stalk.appendChild(leaf);
- }
- field.appendChild(stalk);
-}
-function sway(){
- document.querySelectorAll(".stalk").forEach((s,i)=>{
-  s.style.transform=`rotate(${Math.sin(Date.now()/800+i)*8}deg)`;
- });
- requestAnimationFrame(sway);
-}
-sway();
+  dialogue.style.opacity = 0;
+  setTimeout(()=>{
+    dialogue.innerText = lines[i % lines.length];
+    dialogue.style.opacity = 1;
+  }, 800);
 
-/* BIRDS */
-const birds=document.getElementById("birds");
+  if(i === 3){ document.body.className = "noon"; sun.style.top="12%"; }
+  if(i === 7){ document.body.className = "sunset"; sun.style.top="28%"; }
+  if(i === 9){ document.body.className = "night"; sun.style.top="45%"; }
+
+}, 15000);
+
+/* 🌾 SUGARCANE SWAY */
+const field = document.getElementById('field');
+for(let s=0;s<40;s++){
+  const stalk=document.createElement('div');
+  stalk.className='stalk';
+  stalk.style.left=`${s*25}px`;
+  for(let l=0;l<3;l++){
+    const leaf=document.createElement('div');
+    leaf.className='leaf';
+    leaf.style.top=`${20+l*30}px`;
+    stalk.appendChild(leaf);
+  }
+  field.appendChild(stalk);
+}
+
+(function sway(){
+  document.querySelectorAll('.stalk').forEach((s,i)=>{
+    s.style.transform=`rotate(${Math.sin(Date.now()/1000+i)*8}deg)`;
+  });
+  requestAnimationFrame(sway);
+})();
+
+/* 🐦 BIRDS */
+const birds=document.getElementById('birds');
 for(let b=0;b<6;b++){
- const bird=document.createElement("div");
- bird.className="bird";
- bird.style.top=`${Math.random()*30+5}%`;
- bird.style.left=`${-20-Math.random()*40}px`;
- birds.appendChild(bird);
+  const bird=document.createElement('div');
+  bird.className='bird';
+  bird.style.top=`${Math.random()*200+40}px`;
+  bird.style.left=`${-100-Math.random()*200}px`;
+  birds.appendChild(bird);
 }
-function fly(){
- document.querySelectorAll(".bird").forEach(b=>{
-  b.style.left=(parseFloat(b.style.left)+0.6)+"px";
-  if(parseFloat(b.style.left)>window.innerWidth) b.style.left="-40px";
- });
- requestAnimationFrame(fly);
+(function fly(){
+  document.querySelectorAll('.bird').forEach(b=>{
+    let x=parseFloat(b.style.left);
+    x+=1.5;
+    if(x>window.innerWidth+50) x=-100;
+    b.style.left=x+'px';
+  });
+  requestAnimationFrame(fly);
+})();
+
+/* 🪁 KITES */
+const kites=document.getElementById('kites');
+for(let k=0;k<3;k++){
+  const kite=document.createElement('div');
+  kite.className='kite';
+  kite.style.left=`${Math.random()*80}%`;
+  kite.style.top=`${Math.random()*150+60}px`;
+  kites.appendChild(kite);
 }
-fly();
+
+(function floatKites(){
+  document.querySelectorAll('.kite').forEach((k,i)=>{
+    k.style.transform=`translateY(${Math.sin(Date.now()/1200+i)*15}px) rotate(45deg)`;
+  });
+  requestAnimationFrame(floatKites);
+})();
 </script>
 
 </body>
