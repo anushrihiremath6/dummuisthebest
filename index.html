@@ -46,7 +46,6 @@ body{
   box-shadow:0 0 120px rgba(255,193,7,0.9);
   z-index:2;
   transition:top 6s;
-  display:none;
 }
 
 /* SANKRANTI WISH */
@@ -60,7 +59,6 @@ body{
   font-size:2em;
   text-shadow:0 0 20px rgba(255,193,7,0.9);
   z-index:999;
-  display:none;
 }
 .sankranti-wish span{
   display:block;
@@ -77,7 +75,6 @@ body{
   background:linear-gradient(to top,#455a64,#90a4ae);
   clip-path: polygon(0 100%,10% 60%,25% 80%,40% 50%,55% 75%,70% 45%,85% 70%,100% 55%,100% 100%);
   z-index:1;
-  display:none;
 }
 
 /* DIALOGUE */
@@ -94,7 +91,6 @@ body{
   font-size:1em;
   z-index:4;
   transition:opacity 1s;
-  display:none;
 }
 
 /* SLIDESHOW */
@@ -112,7 +108,6 @@ body{
   background:#fff;
   box-shadow:0 25px 60px rgba(0,0,0,0.45);
   z-index:5;
-  display:none;
 }
 .slideshow img{
   position:absolute;
@@ -134,7 +129,6 @@ body{
   width:100%;
   height:40%;
   z-index:3;
-  display:none;
 }
 .stalk{
   position:absolute;
@@ -156,7 +150,7 @@ body{
 }
 
 /* BIRDS & KITES */
-.birds,.kites{position:absolute; inset:0; pointer-events:none; display:none;}
+.birds,.kites{position:absolute; inset:0; pointer-events:none;}
 .bird{position:absolute;width:18px;height:10px;border-top:2px solid #222;border-radius:50%;animation:flap .6s alternate infinite;}
 @keyframes flap{from{transform:rotate(5deg);}to{transform:rotate(-5deg);}}
 .kite{position:absolute;width:34px;height:34px;background:linear-gradient(45deg,#ff5252,#ffca28);transform:rotate(45deg);}
@@ -173,13 +167,16 @@ body{
 </head>
 <body class="sunrise">
 
+<!-- MUSIC PROMPT -->
 <div id="musicPrompt">
-  <button onclick="startCelebration()">Tap to Begin Sankranti 🌾🎶</button>
+  <button id="startButton">Tap to Begin Sankranti 🌾🎶</button>
 </div>
+
 <audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
+<!-- VISUALS -->
 <div class="sun" id="sun"></div>
 <div class="sankranti-wish" id="wish">🌾 Happy Sankranti! 🌞💛<br><span>May your day shine like the harvest sun</span></div>
 <div class="mountains" id="mountains"></div>
@@ -196,27 +193,36 @@ body{
 <div class="field" id="field"></div>
 
 <script>
-function startCelebration(){
-  document.getElementById("bgMusic").play();
-  document.getElementById("musicPrompt").style.display="none";
+const musicPrompt = document.getElementById("musicPrompt");
+const startButton = document.getElementById("startButton");
+const bgMusic = document.getElementById("bgMusic");
+const sun = document.getElementById("sun");
+const wish = document.getElementById("wish");
+const mountains = document.getElementById("mountains");
+const dialogue = document.getElementById("dialogue");
+const slideshow = document.getElementById("slideshow");
+const birdsEl = document.getElementById("birds");
+const kitesEl = document.getElementById("kites");
+const field = document.getElementById("field");
 
-  // show elements
-  document.getElementById("sun").style.display="block";
-  document.getElementById("wish").style.display="block";
-  document.getElementById("mountains").style.display="block";
-  document.getElementById("dialogue").style.display="block";
-  document.getElementById("slideshow").style.display="block";
-  document.getElementById("birds").style.display="block";
-  document.getElementById("kites").style.display="block";
-  document.getElementById("field").style.display="block";
-}
+startButton.onclick = () => {
+  bgMusic.play();
+  musicPrompt.style.display="none";
+
+  // Show elements
+  sun.style.display="block";
+  wish.style.display="block";
+  mountains.style.display="block";
+  dialogue.style.display="block";
+  slideshow.style.display="block";
+  birdsEl.style.display="block";
+  kitesEl.style.display="block";
+  field.style.display="block";
+};
 
 /* SLIDESHOW + DIALOGUE */
-const slides=document.querySelectorAll(".slideshow img");
-const dialogue=document.getElementById("dialogue");
-const sun=document.getElementById("sun");
-let i=0;
-const lines=[
+const slides = document.querySelectorAll(".slideshow img");
+const lines = [
 "The morning wakes up gently… just to see you 🌅💛",
 "Sunrise feels warmer when your smile exists ☀️😊",
 "As the day grows brighter, so does my admiration 💫",
@@ -228,16 +234,13 @@ const lines=[
 "Sunset wishes it could be as beautiful as you 🌅✨",
 "And as the day rests, my feelings grow deeper 🌙💛"
 ];
+let i=0;
 setInterval(()=>{
   slides[i].classList.remove("active");
   i=(i+1)%slides.length;
   slides[i].classList.add("active");
-
   dialogue.style.opacity=0;
-  setTimeout(()=>{
-    dialogue.textContent=lines[i%lines.length];
-    dialogue.style.opacity=1;
-  },600);
+  setTimeout(()=>{ dialogue.textContent = lines[i%lines.length]; dialogue.style.opacity=1; },600);
 
   if(i===2){document.body.className="noon"; sun.style.top="10%";}
   if(i===6){document.body.className="sunset"; sun.style.top="25%";}
@@ -245,15 +248,14 @@ setInterval(()=>{
 },15000);
 
 /* SUGARCANE */
-const field=document.getElementById("field");
 for(let s=0;s<40;s++){
-  const stalk=document.createElement("div");
+  const stalk = document.createElement("div");
   stalk.className="stalk";
-  stalk.style.left=s*25+"px";
+  stalk.style.left = s*25+"px";
   for(let l=0;l<3;l++){
-    const leaf=document.createElement("div");
+    const leaf = document.createElement("div");
     leaf.className="leaf";
-    leaf.style.top=20+l*30+"px";
+    leaf.style.top = 20+l*30 + "px";
     leaf.style.transform=`rotate(${Math.random()*30-15}deg)`;
     stalk.appendChild(leaf);
   }
@@ -267,13 +269,12 @@ for(let s=0;s<40;s++){
 })();
 
 /* BIRDS */
-const birds=document.getElementById("birds");
 for(let b=0;b<6;b++){
   const bird=document.createElement("div");
   bird.className="bird";
   bird.style.top=Math.random()*200+40+"px";
   bird.style.left=-100-Math.random()*200+"px";
-  birds.appendChild(bird);
+  birdsEl.appendChild(bird);
 }
 (function fly(){
   document.querySelectorAll(".bird").forEach(b=>{
@@ -286,13 +287,12 @@ for(let b=0;b<6;b++){
 })();
 
 /* KITES */
-const kites=document.getElementById("kites");
 for(let k=0;k<3;k++){
-  const kite=document.createElement("div");
+  const kite = document.createElement("div");
   kite.className="kite";
   kite.style.left=Math.random()*80+"%";
   kite.style.top=Math.random()*150+60+"px";
-  kites.appendChild(kite);
+  kitesEl.appendChild(kite);
 }
 (function floatKites(){
   document.querySelectorAll(".kite").forEach((k,i)=>{
